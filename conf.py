@@ -1,10 +1,15 @@
 import sys
 import os
 import shlex
+
+sys.path.append(os.path.abspath('.'))
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'rfc2119',
 ]
+rfc2119_include_mandatorys = True
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
@@ -17,7 +22,7 @@ language = None
 exclude_patterns = ['_build']
 pygments_style = 'sphinx'
 todo_include_todos = False
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 htmlhelp_basename = 'sphinxrfc2119doc'
 latex_elements = {
