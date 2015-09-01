@@ -1,6 +1,8 @@
 # sphinx.rfc2119
 sphinx extension for documenting conformance criteria per IETF RFC 2119
 
+http://sphinx-doc.org
+
 The purpose of this sphinx extension is enable markup of requirements per the definitions in RFC 2119. 
 
 https://www.ietf.org/rfc/rfc2119.txt
