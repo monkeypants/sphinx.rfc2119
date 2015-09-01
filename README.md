@@ -56,3 +56,10 @@ Requirement catalogue directives:
  * `recommendedlist` creates a list of all SHOULD (and equivalent) requirements
  * `recommendednotlist` creates a list of all SHOULD NOT (and equivalent) requirements
  * `optionallist` creates a list of all OPTIONAL (and equivalent) requirements
+
+Also, the `rfc2119interpretation` directive inserts the following text:
+
+    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+    NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
+    "OPTIONAL" in this document are to be interpreted as described in
+    RFC 2119.
