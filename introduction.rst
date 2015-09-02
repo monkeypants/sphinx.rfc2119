@@ -12,9 +12,14 @@ This module is in ALPHA status. Feedback / pull requests very welcome. Developme
 
  * https://github.com/monkeypants/sphinx.rfc2119/
 
-Documentation is a bit strange - I used the directives to docuiment what it is supposed to do. Which was handy as I made it, but probably not very readable.
+Documentation is a bit strange - I used the directives to document what it is supposed to do. Which was handy as I made it, but probably not very readable.
 
-Basically, include the module then use the directives. They have lower case names.
+Basically, add the module to your the `conf.py` of your repo then use the directives. They have lower case names.
+
+The motivtion for this module is in response to this ticket:
+
+ * https://github.com/AusDTO/apiguide/issues/11
+
 
 .. must::
 
