@@ -1,15 +1,17 @@
-from docutils import nodes
+from docutils import nodes, statemachine
 from docutils.parsers.rst import Directive
 from sphinx.util.compat import make_admonition
 from sphinx.locale import _
 
 def setup(app):
-    app.add_config_value('rfc2119_include', True, True)
-    app.add_node(mandatorylist)
-    app.add_node(recommendationlist)
-    app.add_node(optionallist)
+    global BASE_TYPES
+    global LIST_TYPES
 
-    for node_type in (mandatory, recommended, optional):
+    app.add_config_value('rfc2119_include', True, True)
+
+    for t in LIST_TYPES:
+        app.add_node(t)
+    for node_type in BASE_TYPES + (rfc2119interpretation,):
         app.add_node(
             node_type,
             html=(visit_rfc2119_node, depart_rfc2119_node),
@@ -32,6 +34,8 @@ def setup(app):
     app.add_directive('recommendationlist', RecommendationListDirective)
     app.add_directive('optionallist', OptionalListDirective)
 
+    app.add_directive('rfc2119interpretation', rfc2119InterpretationDirective)
+
     app.connect('doctree-resolved', process_rfc2119_nodes)
     app.connect('env-purge-doc', purge_rfc2119_mandatory)
     app.connect('env-purge-doc', purge_rfc2119_recommendation)
@@ -40,6 +44,7 @@ def setup(app):
     return {"version": "0.2"}
 
 
+class rfc2119interpretation(nodes.Admonition, nodes.Element): pass
 class mandatory(nodes.Admonition, nodes.Element): pass
 class recommended(nodes.Admonition, nodes.Element): pass
 class optional(nodes.Admonition, nodes.Element): pass
@@ -47,12 +52,32 @@ class mandatorylist(nodes.General, nodes.Element): pass
 class recommendationlist(nodes.General, nodes.Element): pass
 class optionallist(nodes.General, nodes.Element): pass
 
+BASE_TYPES =  (mandatory, recommended, optional)
+LIST_TYPES = (mandatorylist, recommendationlist, optionallist)
 
 def visit_rfc2119_node(self, node):
     self.visit_admonition(node)
 
 def depart_rfc2119_node(self, node):
     self.depart_admonition(node)
+
+
+class rfc2119InterpretationDirective(Directive):
+    has_content = True
+    def run(self):
+        lines = (
+            'The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",',
+            '"SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",',
+            'and "OPTIONAL" in this document are to be interpreted as',
+            'described in RFC 2119.')
+        boilerplate = statemachine.ViewList(initlist=lines)
+        self.content.append(boilerplate)
+
+        return make_admonition(
+            rfc2119interpretation, self.name, [_('RFC 2119 keywords')], 
+            self.options, self.content,
+            self.lineno, self.content_offset,
+            self.block_text, self.state, self.state_machine)
 
 
 class MandatoryListDirective(Directive):
@@ -73,14 +98,13 @@ class OptionalListDirective(Directive):
 
 class rfc2119Directive(Directive):
     """ An abstract base for rfc2199 requirements."""
-    # labels not used because this class is treated as abstract
+    # this label not used because this class is treated as abstract
     # we expcet subclasses to overwrite them
     label = "rfc2119"
     requirement_class = "rfc2119"
     has_content = True
     def run(self):
         env = self.state.document.settings.env
-        #env.app.warn('DEBUG')
         targetid = "%s-%d" % (
             self.requirement_class,
             env.new_serialno(self.requirement_class))
@@ -168,17 +192,19 @@ def purge_rfc2119_optional(app, env, docname):
 
 # TODO - for the other node types, not just mandatory
 def process_rfc2119_nodes(app, doctree, fromdocname):
-    base_types =  (mandatory, recommended, optional)
-    list_types = (mandatorylist, recommendationlist, optionallist)
+    global BASE_TYPES
+    global LIST_TYPES
 
     if not app.config.rfc2119_include:
-        for node_type in base_types:
+        for node_type in BASE_TYPES:
             for node in doctree.traverse(node_type):
                 node.parent.remove(node)
 
+    # replace list_type nodes with an actual list
+    # of the nodes they list  
     env = app.builder.env
 
-    for node_type in list_types:
+    for node_type in LIST_TYPES:
         for node in doctree.traverse(node_type):
             if not app.config.rfc2119_include:
                 node.replace_self([])
