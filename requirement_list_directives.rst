@@ -27,6 +27,7 @@ The following list of mandatory reqirements includes every MUST, MUST NOT, SHALL
 
 .. mandatorylist::
 
+
 Example Recommended List
 ------------------------
 
@@ -39,3 +40,4 @@ Example Optional List
 ---------------------
 
 .. optionallist::
+
