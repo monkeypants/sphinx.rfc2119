@@ -186,12 +186,14 @@ def process_rfc2119_nodes(app, doctree, fromdocname):
 
             content = []
 
-            if node_type == mandatory:
+            if node_type == mandatorylist:
                 env_data = env.rfc2119_all_mandatory
             elif node_type == recommendationlist:
                 env_data = env.rfc2119_all_recommendation
-            else:
+            elif node_type == optionallist:
                 env_data = env.rfc2119_all_optional
+            else:
+                raise Exception('invalid node_type: %s' % node_type)
 
             for info in env_data:
                 para = nodes.paragraph()
