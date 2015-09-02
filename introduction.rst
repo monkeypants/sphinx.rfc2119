@@ -15,12 +15,9 @@ This is supported by a suite of **requirement directives** that correspond to th
    A `rfc2119interpretation` directive is required for this purpose.
 
 
-... rfc2119interpretation::
+.. rfc2119interpretation::
 
 
-.. note::
+.. may::
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and OPTIONAL" in this document are to be interpreted as described in RFC 2119.
-
-
-may: Optionally, this module should support governance parameters for documenting requirement status, valid from date, review date, etc.
+   Optionally, this module should support governance parameters for documenting requirement status, valid from date, review date, etc.
