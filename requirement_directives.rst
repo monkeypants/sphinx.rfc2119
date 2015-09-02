@@ -2,11 +2,12 @@ Requirement Directives
 ======================
 
 RFC 2119 defines:
- * 5 of manditory requirement labels
+ * 5 of mandatory requirement labels
  * 5 recommendation labels
  * 2 optional labels
 
-Manditory Requirements
+
+Mandatory Requirements
 ----------------------
 
 .. must::
