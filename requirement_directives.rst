@@ -2,9 +2,13 @@ Requirement Directives
 ======================
 
 RFC 2119 defines:
- * 5 of mandatory requirement labels
+ * 5 mandatory requirement labels
  * 5 recommendation labels
  * 2 optional labels
+
+This sphinx extension includes 12 coresponding "requirements directives".
+They have lowercase names (with words separated by underscores for two word
+phrases.
 
 
 Mandatory Requirements
