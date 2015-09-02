@@ -7,7 +7,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   requirements
+   introduction
+   requirement_directives
+   requirement_list_directives
    code
 
 
