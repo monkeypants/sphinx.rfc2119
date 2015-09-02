@@ -8,5 +8,5 @@ https://www.ietf.org/rfc/rfc2119.txt
 
 The documentation is published here:
 
-http://sphinxrfc2119.readthedocs.org/en/latest/
+http://sphinxrfc2119.readthedocs.org
 
