@@ -25,42 +25,27 @@ def setup(app):
     app.add_directive('should_not', ShouldNotDirective)
     app.add_directive('recommended', RecommendedDirective)
     app.add_directive('not_recommended', NotRecommendedDirective)
+    app.add_directive('optional', OptionalDirective)
+    app.add_directive('may', MayDirective)
 
     app.add_directive('mandatorylist', MandatoryListDirective)
     app.add_directive('recommendationlist', RecommendationListDirective)
+    app.add_directive('optionallist', OptionalListDirective)
 
     app.connect('doctree-resolved', process_rfc2119_nodes)
     app.connect('env-purge-doc', purge_rfc2119_mandatory)
     app.connect('env-purge-doc', purge_rfc2119_recommendation)
     app.connect('env-purge-doc', purge_rfc2119_optional)
-    """
-    app.add_node(optionallist)
-    """
+
     return {"version": "0.2"}
 
 
-class mandatory(nodes.Admonition, nodes.Element):
-    pass
-
-
-class recommended(nodes.Admonition, nodes.Element):
-    pass
-
-
-class optional(nodes.Admonition, nodes.Element):
-    pass
-
-
-class mandatorylist(nodes.General, nodes.Element):
-    pass
-
-
-class recommendationlist(nodes.General, nodes.Element):
-    pass
-
-
-class optionallist(nodes.General, nodes.Element):
-    pass
+class mandatory(nodes.Admonition, nodes.Element): pass
+class recommended(nodes.Admonition, nodes.Element): pass
+class optional(nodes.Admonition, nodes.Element): pass
+class mandatorylist(nodes.General, nodes.Element): pass
+class recommendationlist(nodes.General, nodes.Element): pass
+class optionallist(nodes.General, nodes.Element): pass
 
 
 def visit_rfc2119_node(self, node):
@@ -72,26 +57,22 @@ def depart_rfc2119_node(self, node):
 
 class MandatoryListDirective(Directive):
     has_content = True
-
     def run(self):
         return [mandatorylist('')]
 
-
 class RecommendationListDirective(Directive):
     has_content = True
-
     def run(self):
         return [recommendationlist('')]
 
-
 class OptionalListDirective(Directive):
     has_content = True
-
     def run(self):
         return [optionallist('')]
 
 
 class rfc2119Directive(Directive):
+    """ An abstract base for rfc2199 requirements."""
     # labels not used because this class is treated as abstract
     # we expcet subclasses to overwrite them
     label = "rfc2119"
@@ -118,52 +99,51 @@ class rfc2119Directive(Directive):
         env_data.append({
             'docname': env.docname,
             'lineno': self.lineno,
-            'mandatory': ad[0].deepcopy(),
+            'rfc2119': ad[0].deepcopy(),
             'target': targetnode})
 
         return [targetnode] + ad
 
 
+class OptionalDirective(rfc2119Directive):
+    label = "Optional"
+    requirement_class = "optional"
+
+class MayDirective(rfc2119Directive):
+    label = "May"
+    requirement_class = "optional"
 
 class ShouldDirective(rfc2119Directive):
     label = "Should"
     requirement_class = "recommendation"
 
-
 class ShouldNotDirective(rfc2119Directive):
     label = "Should Not"
     requirement_class = "recommendation"
-
 
 class RecommendedDirective(rfc2119Directive):
     label = "Recommended"
     requirement_class = "recommendation"
 
-
 class NotRecommendedDirective(rfc2119Directive):
     label = "Not Recommended"
     requirement_class = "recommendation"
-
 
 class MustDirective(rfc2119Directive):
     label = "Must"
     requirement_class = "mandatory"
 
-
 class MustNotDirective(rfc2119Directive):
     label = "Must Not"
     requirement_class = "mandatory"
-
 
 class ShallDirective(rfc2119Directive):
     label = "Shall"
     requirement_class = "mandatory"
 
-
 class ShallNotDirective(rfc2119Directive):
     label = "Shall Not"
     requirement_class = "mandatory"
-
 
 class RequiredDirective(rfc2119Directive):
     label = "Required"
@@ -180,47 +160,58 @@ def purge_rfc2119_recommendation(app, env, docname):
         return
     env.rfc2119_all_recommendation = [rec for rec in env.rfc2119_all_recommendation if rec['docname'] != docname]
 
-
 def purge_rfc2119_optional(app, env, docname):
     if not hasattr(env, 'rfc2119_all_optional'):
         return
-    env.rfc2119_all_optional = [rec for rec in env.rfc2119_all_recommendation if rec['docname'] != docname]
+    env.rfc2119_all_optional = [rec for rec in env.rfc2119_all_optional if rec['docname'] != docname]
 
 
 # TODO - for the other node types, not just mandatory
 def process_rfc2119_nodes(app, doctree, fromdocname):
+    base_types =  (mandatory, recommended, optional)
+    list_types = (mandatorylist, recommendationlist, optionallist)
+
     if not app.config.rfc2119_include:
-        for node in doctree.traverse(mandatory):
-            node.parent.remove(node)
+        for node_type in base_types:
+            for node in doctree.traverse(node_type):
+                node.parent.remove(node)
 
     env = app.builder.env
 
-    for node in doctree.traverse(mandatorylist):
-        if not app.config.rfc2119_include:
-            node.replace_self([])
-            continue
+    for node_type in list_types:
+        for node in doctree.traverse(node_type):
+            if not app.config.rfc2119_include:
+                node.replace_self([])
+                continue
 
-        content = []
+            content = []
 
-        for mandatory_info in env.rfc2119_all_mandatory:
-            para = nodes.paragraph()
-            filename = env.doc2path(mandatory_info['docname'], base=None)
-            description = (
-                _('(The original entry is located in %s, line %d and can be found ') %
-                (filename, mandatory_info['lineno']))
-            para += nodes.Text(description, description)
+            if node_type == mandatory:
+                env_data = env.rfc2119_all_mandatory
+            elif node_type == recommendationlist:
+                env_data = env.rfc2119_all_recommendation
+            else:
+                env_data = env.rfc2119_all_optional
 
-            newnode = nodes.reference('', '')
-            innernode = nodes.emphasis(_('here'), _('here'))
-            newnode['refdocname'] = mandatory_info['docname']
-            newnode['refuri'] = app.builder.get_relative_uri(
-                fromdocname, mandatory_info['docname'])
-            newnode['refuri'] += '#' + mandatory_info['target']['refid']
-            newnode.append(innernode)
-            para += newnode
-            para+= nodes.Text('.)', '.)')
+            for info in env_data:
+                para = nodes.paragraph()
+                filename = env.doc2path(info['docname'], base=None)
+                description = (
+                    _('(The original entry is located in %s, line %d and can be found ') %
+                    (filename, info['lineno']))
+                para += nodes.Text(description, description)
 
-            content.append(mandatory_info['mandatory'])
-            content.append(para)
+                newnode = nodes.reference('', '')
+                innernode = nodes.emphasis(_('here'), _('here'))
+                newnode['refdocname'] = info['docname']
+                newnode['refuri'] = app.builder.get_relative_uri(
+                    fromdocname, info['docname'])
+                newnode['refuri'] += '#' + info['target']['refid']
+                newnode.append(innernode)
+                para += newnode
+                para+= nodes.Text('.)', '.)')
 
-        node.replace_self(content)
+                content.append(info['rfc2119'])
+                content.append(para)
+
+            node.replace_self(content)

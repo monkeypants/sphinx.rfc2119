@@ -70,6 +70,14 @@ Recommendations
 Options
 -------
 
- * `optional` (equivalent of OPTIONAL keyword)
- * `may` (alias for `optional` directive)
+.. optional::
+
+   It might be nice to have an `optional` directive,
+   which would be equivalent of OPTIONAL keyword in RFC 2119.
+
+
+.. may::
+
+   As an alias for the `optional` directive,
+   a `may` directive might also be good to have.
 

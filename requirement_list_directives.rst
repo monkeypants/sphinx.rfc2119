@@ -32,10 +32,10 @@ Example Recommended List
 
 The following list of recommendations includes every SHOULD, SHOULD NOT, RECOMMENDED etc.
 
-.. recommendationlist
+.. recommendationlist::
 
 
 Example Optional List
 ---------------------
 
-optionallist
+.. optionallist::
