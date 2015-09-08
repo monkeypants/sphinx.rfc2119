@@ -45,6 +45,7 @@ def setup(app):
 
 
 class rfc2119interpretation(nodes.Admonition, nodes.Element): pass
+
 class mandatory(nodes.Admonition, nodes.Element): pass
 class recommended(nodes.Admonition, nodes.Element): pass
 class optional(nodes.Admonition, nodes.Element): pass

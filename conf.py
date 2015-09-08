@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath('.'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'rfc2119',
+    'sphinx_rfc2119',
 ]
 rfc2119_include_mandatorys = True
 templates_path = ['_templates']
