@@ -64,14 +64,12 @@ def depart_rfc2119_node(self, node):
 
 
 class rfc2119InterpretationDirective(Directive):
-    has_content = True
+    has_content = False  # True
     def run(self):
         lines = (
-            'The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",',
-            '"SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",',
-            'and "OPTIONAL" in this document are to be interpreted as',
-            'described in RFC 2119.')
+            """The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.""",)
         boilerplate = statemachine.ViewList(initlist=lines)
+        #boilerplate = statemachine.ViewList(list=lines)
         self.content.append(boilerplate)
 
         return make_admonition(

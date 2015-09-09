@@ -20,7 +20,7 @@ Basically, add the module to your the conf.py of your repo then use the directiv
 
 setup(
     name='sphinx_rfc2119',
-    version='0.0.5',
+    version='0.0.6',
     description='RFC2119 directives for Sphinx documentation',
     long_description=long_description,
     url='https://github.com/monkeypants/sphinx.rfc2119',
