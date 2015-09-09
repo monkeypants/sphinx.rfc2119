@@ -50,6 +50,15 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+	rm -rf build/
+	rm -rf dist/
+	rm -rf sphinx_rfc2119.egg-info
+	rm -rf sphinx_rfc2119-{0..999}.{0..999}.{0..9999}
+
+pypipub:
+	python setup.py bdist
+	python setup.py sdist
+	twine upload dist/*
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
