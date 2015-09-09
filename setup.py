@@ -1,6 +1,4 @@
-from setuptools import setup, find_packages
-from codecs import open
-from os import path
+from setuptools import setup
 
 long_description = """
 The purpose of this sphinx extension is enable markup of requirements per the definitions in RFC 2119.
@@ -22,7 +20,7 @@ Basically, add the module to your the conf.py of your repo then use the directiv
 
 setup(
     name='sphinx_rfc2119',
-    version='0.0.3',
+    version='0.0.5',
     description='RFC2119 directives for Sphinx documentation',
     long_description=long_description,
     url='https://github.com/monkeypants/sphinx.rfc2119',
@@ -38,6 +36,6 @@ setup(
         'Programming Language :: Python :: 2.7',
     ],
     keywords='RFC2119 directives Sphinx docutils',
-    packages=find_packages(exclude=['sphinx_rfc2119',]),
+    py_modules = ['sphinx_rfc2119'],
     install_requires=['Sphinx'],
 )

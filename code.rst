@@ -1,6 +1,6 @@
 Code
 ====
 
-.. automodule:: rfc2119
+.. automodule:: sphinx_rfc2119
    :members:
    :undoc-members:
