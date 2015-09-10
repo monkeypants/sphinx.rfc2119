@@ -1,0 +1,19 @@
+.admonition-may,
+.admonition-optional,
+.admonition-should,
+.admonition-should-not,
+.admonition-recommended,
+.admonition-not-recommended,
+.admonition-must,
+.admonition-must-not,
+.admonition-shall,
+.admonition-shall-not,
+.admonition-required,
+.admonition-rfc-2119-keywords
+{
+    margin-right: 4px;
+    padding: 12px;
+    line-height: 24px;
+    margin-bottom: 24px;
+    background: #e7f2fa;
+}
