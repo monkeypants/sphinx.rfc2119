@@ -66,10 +66,8 @@ def depart_rfc2119_node(self, node):
 class rfc2119InterpretationDirective(Directive):
     has_content = False  # True
     def run(self):
-        lines = (
-            """The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.""",)
+        lines = ("""The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.""",)
         boilerplate = statemachine.ViewList(initlist=lines)
-        #boilerplate = statemachine.ViewList(list=lines)
         self.content.append(boilerplate)
 
         return make_admonition(
@@ -109,6 +107,8 @@ class rfc2119Directive(Directive):
             env.new_serialno(self.requirement_class))
         targetnode = nodes.target('', '', ids=[targetid])
 
+        # BUG? why is it always mandatory?
+        # maybe select node type per self.requirement_class
         ad = make_admonition(
             mandatory, self.name, [_(self.label)], self.options,
             self.content, self.lineno, self.content_offset,
