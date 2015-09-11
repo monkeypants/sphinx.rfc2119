@@ -54,10 +54,13 @@ clean:
 	rm -rf dist/
 	rm -rf sphinx_rfc2119.egg-info
 	rm -rf sphinx_rfc2119-{0..999}.{0..999}.{0..9999}
+	rm README.rst
 
-pypipub:
-	python setup.py bdist
+pypipackage:
+	pandoc -f markdown -t rst -o README.rst README.md
 	python setup.py sdist
+
+pypipub: pypipackage
 	twine upload dist/*
 
 html:
@@ -199,3 +202,4 @@ pseudoxml:
 	$(SPHINXBUILD) -b pseudoxml $(ALLSPHINXOPTS) $(BUILDDIR)/pseudoxml
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
+
