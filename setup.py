@@ -1,4 +1,5 @@
 from setuptools import setup
+#import os.path
 
 long_description = """
 The purpose of this sphinx extension is enable markup of requirements per the definitions in RFC 2119.
@@ -18,9 +19,15 @@ Basically, add the module to your the conf.py of your repo then use the directiv
 
 """
 
+#localcss = os.path.join(
+#    os.path.dirname(os.path.abspath(__file__)),
+#    "_static",
+#    "css",
+#    "rfc2119.css")
+
 setup(
     name='sphinx_rfc2119',
-    version='0.0.7',
+    version='0.0.9',
     description='RFC2119 directives for Sphinx documentation',
     long_description=long_description,
     url='https://github.com/monkeypants/sphinx.rfc2119',
@@ -37,5 +44,7 @@ setup(
     ],
     keywords='RFC2119 directives Sphinx docutils',
     py_modules = ['sphinx_rfc2119'],
+    data_files = [
+        ('_static/css', ["_static/css/rfc2119.css"]),],
     install_requires=['Sphinx'],
 )
