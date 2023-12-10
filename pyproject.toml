@@ -13,8 +13,7 @@ classifiers = [
   "Programming Language :: Python :: 2.7"
 ]
 dependencies = [
-  "Sphinx",
-  "sphinx-rtd-theme>=2.0.0"
+  "Sphinx"
 ]
 description = "RFC2119 directives for Sphinx documentation"
 keywords = ["RFC2119 directives Sphinx docutils"]
@@ -27,7 +26,8 @@ version = "0.0.11"
 [project.optional-dependencies]
 dev = [
   "ruff>=0.1.7",
-  "mypy>=1.7.1"
+  "mypy>=1.7.1",
+  "sphinx-rtd-theme>=2.0.0"
 ]
 
 [project.urls]
