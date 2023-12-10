@@ -1,7 +1,7 @@
 Introduction
 ============
 
-The purpose of this sphinx extension is enable markup of requirements per the definitions in RFC 2119. 
+The purpose of this sphinx extension is enable markup of requirements per the definitions in RFC 2119.
 
  * http://sphinx-doc.org
  * https://www.ietf.org/rfc/rfc2119.txt
@@ -35,8 +35,6 @@ The motivtion for this module is in response to this ticket:
 
    Optionally, this module should support governance parameters for
    documenting requirement status, valid from date, review date, etc.
-   
+
    None of these features are implemented yet, sorry. If there's
    something you actually need, please raise a ticket on GitHub.
-
-

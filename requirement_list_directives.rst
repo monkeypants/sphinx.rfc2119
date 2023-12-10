@@ -40,4 +40,3 @@ Example Optional List
 ---------------------
 
 .. optionallist::
-

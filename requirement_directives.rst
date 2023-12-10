@@ -85,4 +85,3 @@ Options
 
    As an alias for the `optional` directive,
    a `may` directive might also be good to have.
-
