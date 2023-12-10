@@ -1,6 +1,6 @@
 from docutils import nodes, statemachine
 from docutils.parsers.rst import Directive
-from .make_admonition import make_admonition
+from ._make_admonition import make_admonition
 from sphinx.locale import _
 
 
