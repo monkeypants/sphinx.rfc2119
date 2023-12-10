@@ -13,7 +13,8 @@ classifiers = [
   "Programming Language :: Python :: 2.7"
 ]
 dependencies = [
-  "Sphinx"
+  "Sphinx",
+  "sphinx-rtd-theme>=2.0.0"
 ]
 description = "RFC2119 directives for Sphinx documentation"
 keywords = ["RFC2119 directives Sphinx docutils"]
@@ -22,6 +23,12 @@ name = "sphinx_rfc2119"
 readme = "README.md"
 requires-python = ">=3.9"
 version = "0.0.10"
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.1.7",
+  "mypy>=1.7.1"
+]
 
 [project.urls]
 Homepage = "https://github.com/monkeypants/sphinx.rfc2119"
