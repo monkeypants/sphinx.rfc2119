@@ -14,3 +14,11 @@ This module is in ALPHA status. Feedback / pull requests very welcome. Developme
 Documentation is a bit strange - I used the directives to document what it is supposed to do. Which was handy as I made it, but probably not very readable.
 
 Basically, add the module to your the conf.py of your repo then use the directives. They have lower case names.
+
+
+## Alternatives
+
+This sphinx extention is very simple, like RFC 2119.
+
+If you want a more complex graph of requirement types,
+perhaps https://sphinx-needs.readthedocs.io/ will suit you better.
