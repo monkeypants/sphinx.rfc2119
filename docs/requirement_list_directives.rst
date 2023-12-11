@@ -25,6 +25,11 @@ Example Mandatory List
 
 The following list of mandatory reqirements includes every MUST, MUST NOT, SHALL, SHALL NOT and REQUIRED semantic in this suite of documentation, because they are makted up with the appropriate directives.
 
+
+::
+
+   .. mandatorylist::
+
 .. mandatorylist::
 
 
@@ -33,11 +38,18 @@ Example Recommended List
 
 The following list of recommendations includes every SHOULD, SHOULD NOT, RECOMMENDED etc.
 
+::
+
+   .. recommendationlist::
+
 .. recommendationlist::
 
 
 Example Optional List
 ---------------------
 
-.. optionallist::
+::
 
+   .. optionallist::
+
+.. optionallist::

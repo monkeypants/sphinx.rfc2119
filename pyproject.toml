@@ -1,0 +1,34 @@
+[build-system]
+build-backend = "pdm.backend"
+requires = ["pdm-backend"]
+
+[project]
+authors = [
+  {name = "Chris Gough", email = "christopher.d.gough-pypi@gmail.com"}
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+  "Programming Language :: Python :: 2.7"
+]
+dependencies = [
+  "Sphinx"
+]
+description = "RFC2119 directives for Sphinx documentation"
+keywords = ["RFC2119 directives Sphinx docutils"]
+license = {text = "GPLv3"}
+name = "sphinx_rfc2119"
+readme = "README.md"
+requires-python = ">=3.9"
+version = "0.0.11"
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.1.7",
+  "mypy>=1.7.1",
+  "sphinx-rtd-theme>=2.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/monkeypants/sphinx.rfc2119"
